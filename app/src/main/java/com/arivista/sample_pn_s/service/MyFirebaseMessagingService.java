@@ -82,8 +82,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        Toast.makeText(this, ""+message, Toast.LENGTH_SHORT).show();
-
     }
 
     private void handleNotification(String message) {

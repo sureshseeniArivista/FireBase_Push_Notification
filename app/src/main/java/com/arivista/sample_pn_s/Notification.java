@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,20 +18,24 @@ public class Notification extends AppCompatActivity {
     String title;
     String message;
 
+    LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
         titleView = (TextView) findViewById(R.id.title);
         messageView = (TextView) findViewById(R.id.message);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         title = intent.getStringExtra("title");
         message = intent.getStringExtra("message");
 
         titleView.setText(title);
         messageView.setText(message);
+
 
     }
 

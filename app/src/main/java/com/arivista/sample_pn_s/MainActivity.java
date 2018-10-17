@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        onNewIntent(getIntent());
-
+        Intent extras = getIntent();
+        if (extras != null) {
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -51,21 +52,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
 
+                Toast.makeText(MainActivity.this, ""+intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
+
                 // checking for type intent filter
                 if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
                     // fcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
 
+                    //FirebaseMessaging.getInstance().
 
-                    tokenText.setText(""+FirebaseInstanceId.getInstance().getToken());
+
+                    tokenText.setText(""+FirebaseInstanceId.getInstance().getToken()+"\nmmmm :"+intent.getStringExtra("message"));
+
                     Log.d("Key ",""+FirebaseInstanceId.getInstance().getToken());
                 }
             }
         };
 
         tokenText.setText(""+FirebaseInstanceId.getInstance().getToken());
-
     }
 
     @Override
@@ -116,10 +121,5 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            Toast.makeText(this, ""+extras.getString("message"), Toast.LENGTH_SHORT).show();
-        }
     }
 }
